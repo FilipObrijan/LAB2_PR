@@ -11,7 +11,7 @@ ALLOWED_EXTENSIONS = {".html", ".png", ".jpg", ".pdf"}
 
 # Files to show in directory listing
 VISIBLE_FILES = {"index.html", "Syllabus PR FAF-23x -2.pdf"}
-VISIBLE_DIRS = {"books", "docs", "report_pics", "mercedes"}
+VISIBLE_DIRS = {"books", "docs", "mercedes", "report_pics"}
 INCLUDED_FILES = {"index.html", "Syllabus PR FAF-23x -2.pdf"}
 INCLUDED_DIRS = {"books", "docs", "report_pics"}
 MAX_WORKERS = int(os.environ.get("MAX_WORKERS", "16"))
@@ -125,16 +125,15 @@ def _minimal_listing_html(req_path: str, abs_dir: str) -> bytes:
     for name in entries:
         full = os.path.join(abs_dir, name)
         is_directory = os.path.isdir(full)
-        
-        # Only show specific files and directories
+        # Only filter on main /public/ page
+        if req_path == "/" or req_path == "/public/":
+            if is_directory:
+                if name not in VISIBLE_DIRS:
+                    continue
+            else:
+                if name not in VISIBLE_FILES:
+                    continue
         if is_directory:
-            if name not in VISIBLE_DIRS:
-                continue
-        else:
-            if name not in VISIBLE_FILES:
-                continue
-            
-        if os.path.isdir(full):
             href = quote(name) + "/"
             size = "—"
         else:
@@ -212,8 +211,10 @@ def _serve_connection(conn: socket.socket, addr, content_dir: str):
         _bump_count(target)
 
         # map to filesystem under content_dir
-        requested_rel = "" if target == "/" else target.lstrip("/")
-        requested_abs = os.path.realpath(os.path.join(content_dir, requested_rel))
+        # Always serve from /public/ as root
+        public_root = os.path.join(content_dir, "public")
+        requested_rel = target.lstrip("/")
+        requested_abs = os.path.realpath(os.path.join(public_root, requested_rel))
 
         # 1) traversal guard
         if not _is_subpath(requested_abs, content_dir):
