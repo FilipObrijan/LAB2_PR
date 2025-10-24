@@ -1,0 +1,19 @@
+services:
+  server2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pr-web-server-lab2
+    environment:
+      PORT: 8001
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./:/serve:ro
+    command: ["python", "server_mt.py", "/serve"]
+
+  requesttest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: [ "python", "request_test.py" ]
