@@ -7,7 +7,7 @@ During this laboratory work I modified the server from the first lab and it beca
 * The *server_mt.py* file handles incoming HTTP requests, retrieves the requested files from the specified directory, and sends them back to the client. It also handles the threads, counter for requests and rate limiting.
 * The *request_test.py* connects to the server, sends file requests, and displays the statistics regarding the requests.
 
-    ![img_8.png](public%2Freport_pics%2Fimg_8.png)
+![img_8.png](public%2Freport_pics%2Fimg_8.png)
 
 ## Dockerfile
 The `Dockerfile` sets up a lightweight Python 3.12-slim environment, creates the `/app` working directory, copies in `server_mt.py` and `request_test.py`, defines port `8001` as an environment variable and exposes it, then runs `server_mt.py` with `/serve` as the directory to serve files from when the container starts.
