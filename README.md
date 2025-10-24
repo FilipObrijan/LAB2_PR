@@ -71,6 +71,6 @@ When sending the requests using my ```request_test.py``` script we can also add 
 
 
 Also my colleague MITU VLADLEN tried to send more than 5 req to my server in a second and he got a 429 error as well in browser:
-![img_10.png](public%2Freport_pics%2Fimg_10.png)
+![img_10.jpg](public%2Freport_pics%2Fimg_10.jpg)
 When he sent less than 5 req/s he got a 200 OK response:
-![img_11.png](public%2Freport_pics%2Fimg_11.png)
+![img_11.jpg](public%2Freport_pics%2Fimg_11.jpg)
