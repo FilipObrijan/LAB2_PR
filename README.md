@@ -60,7 +60,7 @@ When we run the server we get in the browser:
 ## Compare single threaded and multi threaded server
 First I ran both servers, then I ran the following command to test both server by sending 10 concurrent requests using the `request_test.py` script. Both servers have a 0.5s delay when processing requests to better see the difference.
 ```
-docker compose run --rm requesttest host.docker.internal 8000 public/flower.png 10 
+docker compose run --rm requesttest host.docker.internal 8000 public/mercedes1.jpg 10 
 ```
 
 
